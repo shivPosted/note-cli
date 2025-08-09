@@ -1,6 +1,11 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { findNotes, getAllNotes, newNote } from "./noteController.js";
+import {
+  findNotes,
+  getAllNotes,
+  newNote,
+  removeNote,
+} from "./noteController.js";
 import { displayNotesList } from "./utils.js";
 
 const cli = yargs(hideBin(process.argv));
@@ -46,7 +51,23 @@ cli
     },
     async (argv) => {
       const foundNotes = await findNotes(argv.filter);
-      displayNotesList(foundNotes, "filtered");
+      if (foundNotes.length !== 0)
+        return displayNotesList(foundNotes, "filtered");
+      console.log(`No note found by filter '${argv.filter}'`);
+    },
+  )
+  .command(
+    "delete <noteid>",
+    "Delete a note with the note id",
+    (yargs) => {
+      yargs.positional("noteid", {
+        describe: "id for the note to be deleted",
+        type: "number",
+      });
+    },
+    async (argv) => {
+      const deletedNoteId = await removeNote(argv.noteid);
+      console.log(`note with id:${deletedNoteId} deleted`);
     },
   )
   .option("tags", {

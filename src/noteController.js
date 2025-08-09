@@ -17,8 +17,7 @@ const findNotes = async (filter) => {
   const foundNotes = notes.filter((note) =>
     note.description.toLowerCase().includes(filter.toLowerCase()),
   );
-  if (foundNotes.length) return foundNotes;
-  else return "No note found by that filter";
+  return foundNotes;
 };
 
 const newNote = async (noteDesc, tags) => {
