@@ -27,8 +27,8 @@ const newNote = async (noteDesc, tags) => {
     description: noteDesc,
     id: Date.now(),
   };
-  const note = await insertDB(newNote);
-  return note;
+  await insertDB(newNote);
+  return JSON.stringify(newNote);
 };
 
 const getAllNotes = async () => {

@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 
-import "./test.js";
+import "./src/commands.js";

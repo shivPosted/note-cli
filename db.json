@@ -1,3 +1,28 @@
 {
-  "notes": []
+    "notes": [
+        {
+            "tags": [
+                "work",
+                " prjoect"
+            ],
+            "description": "This is my first note",
+            "id": 1754766253457
+        },
+        {
+            "tags": [
+                "work",
+                " fun"
+            ],
+            "description": "This is my second note",
+            "id": 1754766406189
+        },
+        {
+            "tags": [
+                "fun",
+                "prjoect"
+            ],
+            "description": "This is my third note",
+            "id": 1754766584876
+        }
+    ]
 }
