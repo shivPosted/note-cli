@@ -15,7 +15,7 @@ const insertDB = async (newObj) => {
   try {
     const db = await getDB();
     db.notes.push(newObj);
-    await fs.writeFile(DB_PATH, JSON.stringify(db));
+    await saveDB(db);
     return newObj;
   } catch (error) {
     console.error(error.message);
