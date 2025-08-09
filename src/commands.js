@@ -4,6 +4,7 @@ import {
   findNotes,
   getAllNotes,
   newNote,
+  removeAllNote,
   removeNote,
 } from "./noteController.js";
 import { displayNotesList } from "./utils.js";
@@ -67,7 +68,18 @@ cli
     },
     async (argv) => {
       const deletedNoteId = await removeNote(argv.noteid);
-      console.log(`note with id:${deletedNoteId} deleted`);
+      if (deletedNoteId)
+        return console.log(`note with id:${deletedNoteId} deleted`);
+      console.log("No note found with that id");
+    },
+  )
+  .command(
+    "clean",
+    "Delete all the nodes in db",
+    () => {},
+    async () => {
+      await removeAllNote();
+      console.log("Deleted all notes");
     },
   )
   .option("tags", {

@@ -1,12 +1,15 @@
 import { getDB, insertDB, saveDB } from "./db.js";
 
 const removeNote = async (id) => {
-  if (!id) console.error("Provide a valid id");
   const db = await getDB();
   if (!db) console.error("Could not remove that note");
-  db.notes = db.notes.filter((note) => note.id !== id);
-  await saveDB(db);
-  return id;
+  const match = db.notes.find((note) => note.id === id);
+  if (match) {
+    db.notes = db.notes.filter((note) => note.id !== id);
+    await saveDB(db);
+    return id;
+  }
+  return null;
 };
 
 const removeAllNote = () => saveDB({ notes: [] });
