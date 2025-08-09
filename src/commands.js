@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { getAllNotes, newNote } from "./noteController.js";
+import { findNotes, getAllNotes, newNote } from "./noteController.js";
 import { displayNotesList } from "./utils.js";
 
 const cli = yargs(hideBin(process.argv));
@@ -32,6 +32,21 @@ cli
     async () => {
       const allNotes = await getAllNotes();
       displayNotesList(allNotes);
+    },
+  )
+  .command(
+    "find <filter>",
+    "search for notes in your list of notes",
+    (yargs) => {
+      yargs.positional("filter", {
+        describe:
+          "the search term to filter notes by, it will match the notes based on the passed term and see if the term is inculded in the content",
+        type: "string",
+      });
+    },
+    async (argv) => {
+      const foundNotes = await findNotes(argv.filter);
+      displayNotesList(foundNotes, "filtered");
     },
   )
   .option("tags", {

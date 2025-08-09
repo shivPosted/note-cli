@@ -14,8 +14,8 @@ const removeAllNote = () => saveDB({ notes: [] });
 const findNotes = async (filter) => {
   const { notes } = await getDB();
   if (!notes) console.error("Could not get the notes");
-  const foundNotes = notes.filter(
-    (note) => note.description.toLowerCase() === filter.toLowerCase(),
+  const foundNotes = notes.filter((note) =>
+    note.description.toLowerCase().includes(filter.toLowerCase()),
   );
   if (foundNotes.length) return foundNotes;
   else return "No note found by that filter";
