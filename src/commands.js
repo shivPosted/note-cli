@@ -1,6 +1,7 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { newNote } from "./noteController.js";
+import { getAllNotes, newNote } from "./noteController.js";
+import { displayNotesList } from "./utils.js";
 
 const cli = yargs(hideBin(process.argv));
 
@@ -24,11 +25,19 @@ cli
       else console.error("Could not add note");
     },
   )
+  .command(
+    "all",
+    "get all notes",
+    () => {},
+    async () => {
+      const allNotes = await getAllNotes();
+      displayNotesList(allNotes);
+    },
+  )
   .option("tags", {
     describe: "A list of tags for the provided note",
     type: "string",
     alias: "t",
   })
   .demandCommand(1)
-  .demandOption("tags")
   .parse();
